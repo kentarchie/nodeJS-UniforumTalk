@@ -34,4 +34,6 @@ fs.readFile(fileName, 'utf8', function (err,data) {
       if(dataLines[i].indexOf(searchString) != -1)
          console.log(dataLines[i]);
   }
+  console.log("fs.readFile anonymous function completed");
 });
+console.log("fs.readFile completed");
