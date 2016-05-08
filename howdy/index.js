@@ -8,7 +8,8 @@ var http = require('http');    // need a web server library
 function sendHowdy(req, res)
 {
   res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Howdy do, Uniforum\n');
+  res.write('Howdy do, Uniforum\n');
+  res.end();
 } // sendHowdy
 
 // start listening for web traffic
