@@ -1,0 +1,16 @@
+{
+  "name": "web-app-example",
+  "version": "1.0.0",
+  "description": "Uniforum NodeJS Web App Example",
+  "main": "WebAppExample",
+  "repository": "https://github.com/kentarchie/nodeJS-UniforumTalk.git",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kent Archie",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.4",
+    "express-handlebars": "^3.0.0"
+  }
+}

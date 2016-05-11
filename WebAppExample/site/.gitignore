@@ -1,0 +1,10 @@
+#ignore npm packages
+node_modules
+
+*.swp
+*.zip
+*stackdump
+attic
+attic/*
+npm-debug.log
+
