@@ -9,6 +9,8 @@ var fs = require('fs');
 var app = express();
 app.set('port',process.env.PORT || 3000);
 var Port = app.get('port');
+var copyYear
+var copyYear = new Date().getFullYear();
 
 app.engine("handlebars",handlebars.engine);
 app.set('view engine', 'handlebars');
@@ -27,12 +29,12 @@ app.use(express.static(__dirname+'/static'));
 
 app.get('/',function(req,res){
   	nodeLogger('Processing base route');
-	res.render('home');
+	res.render('home',{copyrightYear:copyYear});
 });
 
 app.get('/about',function(req,res){
   	nodeLogger('Processing about route');
-	res.render('about');
+	res.render('about',{copyrightYear:copyYear});
 });
 
 // 404 catch-all handler (middleware)
