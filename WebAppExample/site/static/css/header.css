@@ -1,0 +1,4 @@
+header { border-bottom : solid black 1px;}
+header span:nth-child(1) { left:0px; float:left;}
+header span:nth-child(2) { width: 40%; color: red; float:left;}
+header span:nth-child(3) { right:0px;}

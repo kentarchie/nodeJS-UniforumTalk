@@ -23,6 +23,8 @@ http.createServer(app).listen(Port, function(){
   nodeLogger('Express server listening on port ' + Port);
 });
 
+app.use(express.static(__dirname+'/static'));
+
 app.get('/',function(req,res){
   	nodeLogger('Processing base route');
 	res.render('home');
