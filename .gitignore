@@ -40,3 +40,4 @@ docs/
 attic
 attic/*
 *.log
+purchases.json
