@@ -43,3 +43,20 @@ header {
 footer {
     height: 42px; /* .push must be the same height as .footer */
 }
+
+#statsButton {
+    color:blue;
+}
+
+.leftSide {
+    position:relative;
+    width:45%;
+    float: left;
+    border:1px solid blue;
+}
+.rightSide {
+    position:relative;
+    width:45%;
+    float: right;
+    border:1px solid green;
+}

@@ -95,11 +95,38 @@ app.get('/GetStats', function (req, res)
    });
 }); // GetStats
 
+app.get('/GetItems/dates/:startDate/:endDate', 
+        function (req, res)
+        {
+	         nodeLogger('Starting GetItems/date');
+            var startMoment = moment(req.params.startDate);
+            var endMoment = moment(req.params.endDate);
+
+	         var startDate = startMoment.startOf('day');
+	         var endDate = endMoment.endOf('day');
+
+	         nodeLogger('Starting GetItems/date startDate='+startDate+ ' endDate='+endDate);
+            var allData;
+            fs.readFile('purchases.json', 'utf8', function (err, data) {
+               if (err) throw err;
+               allData = JSON.parse(data);
+               var itemsList=[];
+               for(var i=0; i< allData.length; ++i) {
+                  var item=allData[i];
+                  var itemDate = moment(item['date']);
+         
+                  if((itemDate > startDate ) && (itemDate < endDate))
+                        itemsList.push(item);
+               }
+               res.send(JSON.stringify(itemsList));
+            });
+        }); // GetItems/date
+
 // 404 catch-all handler (middleware)
 app.use(function(req,res,next){
   	nodeLogger('Processing 404 route');
 	res.status(404);
-	res.render('404');
+	res.render('404',{copyrightYear:copyYear});
 });
 
 // Utilities
