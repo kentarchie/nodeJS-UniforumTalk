@@ -45,7 +45,11 @@ app.get('/about',function(req,res){
 
 // data API
 
-app.get('/GetStats', function (req, res)
+app.get('/GetStats', statsCollection);
+
+app.get('/GetItems/dates/:startDate/:endDate', itemsByDates );
+
+function statsCollection(req,res)
 {
 	nodeLogger('Starting GetStats');
    res.setHeader('Content-Type', 'application/json');
@@ -93,11 +97,10 @@ app.get('/GetStats', function (req, res)
       results['totalStores'] = storeList.length;
       res.send(JSON.stringify(results));
    });
-}); // GetStats
+} // statsCollection
 
-app.get('/GetItems/dates/:startDate/:endDate', 
-        function (req, res)
-        {
+function itemsByDates(req, res)
+{
 	         nodeLogger('Starting GetItems/date');
             var startMoment = moment(req.params.startDate);
             var endMoment = moment(req.params.endDate);
@@ -120,7 +123,7 @@ app.get('/GetItems/dates/:startDate/:endDate',
                }
                res.send(JSON.stringify(itemsList));
             });
-        }); // GetItems/date
+} //itemsByDates
 
 // 404 catch-all handler (middleware)
 app.use(function(req,res,next){
