@@ -58,7 +58,7 @@ function statsCollection(req,res)
 	results['returncode']  =  'pass';
 
    results['earliestDate'] = moment();
-   results['latestDate'] = moment();
+   results['latestDate'] = null;
    results['totalRecords'] = 0;
    results['totalSpent'] = 0.0;
    results['totalStores'] = 0
@@ -82,11 +82,13 @@ function statsCollection(req,res)
       for(var i=0; i< allData.length; ++i) {
           var item=allData[i];
           var itemDate = moment(item['date']);
+          if(results['latestDate'] == null)
+             results['latestDate'] = itemDate 
 
-          if(itemDate < results['earliestDate'])
+          if(itemDate.isBefore(results['earliestDate']))
             results['earliestDate'] = itemDate;
 
-          if(itemDate > results['latestDate'])
+          if(itemDate.isAfter(results['latestDate']))
             results['latestDate'] = itemDate;
 
           results['totalSpent'] += item['price'];
@@ -101,28 +103,28 @@ function statsCollection(req,res)
 
 function itemsByDates(req, res)
 {
-	         nodeLogger('Starting GetItems/date');
-            var startMoment = moment(req.params.startDate);
-            var endMoment = moment(req.params.endDate);
+	 nodeLogger('Starting GetItems/date');
+    var startMoment = moment(req.params.startDate);
+    var endMoment = moment(req.params.endDate);
 
-	         var startDate = startMoment.startOf('day');
-	         var endDate = endMoment.endOf('day');
+	 var startDate = startMoment.startOf('day');
+	 var endDate = endMoment.endOf('day');
 
-	         nodeLogger('Starting GetItems/date startDate='+startDate+ ' endDate='+endDate);
-            var allData;
-            fs.readFile('purchases.json', 'utf8', function (err, data) {
-               if (err) throw err;
-               allData = JSON.parse(data);
-               var itemsList=[];
-               for(var i=0; i< allData.length; ++i) {
-                  var item=allData[i];
-                  var itemDate = moment(item['date']);
+	 nodeLogger('Starting GetItems/date startDate='+startDate+ ' endDate='+endDate);
+    var allData;
+    fs.readFile('purchases.json', 'utf8', function (err, data) {
+        if (err) throw err;
+        allData = JSON.parse(data);
+        var itemsList=[];
+        for(var i=0; i< allData.length; ++i) {
+           var item=allData[i];
+           var itemDate = moment(item['date']);
          
-                  if((itemDate > startDate ) && (itemDate < endDate))
-                        itemsList.push(item);
-               }
-               res.send(JSON.stringify(itemsList));
-            });
+           if((itemDate > startDate ) && (itemDate < endDate))
+              itemsList.push(item);
+        }
+        res.send(JSON.stringify(itemsList));
+    });
 } //itemsByDates
 
 // 404 catch-all handler (middleware)
