@@ -8,6 +8,7 @@ var DB_PRICE = 'price';
 $(document).ready(function() {
    logger('init: START ');
    $('#statsTable').hide();
+   $('#itemsTable').hide();
    $('.rightSide').hide();
    $('#statsButton').click(getStats);
    $('#dataButton').click(getItemsByDate);
@@ -22,7 +23,7 @@ function getStats(str)
         $('#earliestDate').html(startDateString);
         $('#latestDate').html(endDateString);
         $('#totalRecords').html(res.totalRecords);
-        $('#totalSpent').html(res.totalSpent);
+        $('#totalSpent').html(parseFloat(res.totalSpent).toFixed(4));
         $('#totalStores').html(res.totalStores);
         $('#statsTable').show();
         setupDates();
@@ -79,6 +80,13 @@ function makeTable(data)
     }
     logger('makeTable: outList made');
     $('#itemsTBody').html(outList.join(''));
+    $('#itemsTable').fixedHeaderTable({ 
+         height : '250'
+         ,width : '600'
+         ,themeClass : 'defaultTheme'
+    });
+    
+    $('#itemsTable').show();
     logger('makeTable: after table make');
 } // makeTable
 
