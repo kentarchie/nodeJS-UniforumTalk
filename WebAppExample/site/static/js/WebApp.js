@@ -1,10 +1,12 @@
 var OutputDateFormat = 'YYYY-MM-DD';
 var InputDateFormat = 'yy-mm-dd';
+//db record field names
 var DB_DATE  = 'date';
 var DB_STORE = 'store';
 var DB_ITEM  = 'item';
 var DB_PRICE = 'price';
 
+// initialize stuff
 $(document).ready(function() {
    logger('init: START ');
    $('#statsTable').hide();
@@ -14,6 +16,7 @@ $(document).ready(function() {
    $('#dataButton').click(getItemsByDate);
 }); // init function 
 
+// fetch stats date from backend and display
 function getStats(str)
 {
     $.get('/GetStats',{},function(res){
@@ -30,6 +33,7 @@ function getStats(str)
     },'json');
 } // getStats
 
+// setup the JQuery DatePickers
 function setupDates()
 {
    $('.rightSide').show();
@@ -53,6 +57,7 @@ function setupDates()
        .datepicker( "setDate" , endDateString)
 } // setupDates
 
+// fetch the purchases data and display
 function getItemsByDate(str)
 {
     var startDate = $('#fromDate').val();
@@ -64,6 +69,8 @@ function getItemsByDate(str)
     },'json');
 } // getItemsByDate
 
+//create an HTML table out of the purchase records
+// insert it into the page
 function makeTable(data)
 {
     logger('makeTable: START');
@@ -80,6 +87,8 @@ function makeTable(data)
     }
     logger('makeTable: outList made');
     $('#itemsTBody').html(outList.join(''));
+
+    // fixheader creates a nicer table
     $('#itemsTable').fixedHeaderTable({ 
          height : '250'
          ,width : '600'
@@ -94,4 +103,3 @@ function logger(str)
 {
     if(window.console && console.log) console.log('WAE: ' + str);
 } // logger
-
